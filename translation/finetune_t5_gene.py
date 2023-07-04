@@ -21,6 +21,7 @@ using a masked language modeling (MLM) loss.
 """
 
 from __future__ import absolute_import
+import datetime
 import os
 from re import I
 import time
@@ -525,7 +526,10 @@ if __name__ == "__main__":
 	# write to file
 	if os.path.exists(my_args.log_dir) is False:
 		os.makedirs(my_args.log_dir)
-	handler = logging.FileHandler(my_args.log_dir + "/fintune.log", mode="w")
+	handler = logging.FileHandler(
+    my_args.log_dir + "/fintune_{}.log".format(datetime.datetime.now().strftime("%m%d_%H%M")),
+    mode="w"
+  )
 	handler.setLevel(logging.INFO)
 	logger.addHandler(handler)
 

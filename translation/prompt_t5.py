@@ -21,6 +21,7 @@ using a masked language modeling (MLM) loss.
 """
 
 from __future__ import absolute_import
+import datetime
 import os
 import time
 
@@ -63,7 +64,7 @@ def read_arguments():
 						help="Path to pre-trained model: e.g. roberta-base")
 
 	# Required parameters
-	parser.add_argument("--log_name", default=None, type=str, required=True)
+	parser.add_argument("--log_dir", default="./log", type=str, required=False)
 
 	parser.add_argument("--output_dir", default="./pr_model", type=str, required=False,
 						help="The output directory where the model predictions and checkpoints will be written.")
@@ -110,11 +111,11 @@ def read_arguments():
 	parser.add_argument("--warm_up_ratio", default=0.1, type=float)
 
 	# controlling arguments
-	parser.add_argument("--do_train", action='store_true',
+	parser.add_argument("--do_train", action='store_true', default=True,
 						help="Whether to run training.")
-	parser.add_argument("--do_eval", action='store_true',
+	parser.add_argument("--do_eval", action='store_true', default=True,
 						help="Whether to run eval on the dev set.")
-	parser.add_argument("--do_test", action='store_true',
+	parser.add_argument("--do_test", action='store_true', default=True,
 						help="Whether to run eval on the dev set.")
 
 	parser.add_argument("--do_lower_case", action='store_true',
@@ -488,8 +489,8 @@ def calculate_bleu(file_name, args, tokenizer, device, model, promptTemplate, Wr
 	# write to file
 	predictions = []
 
-	with open(os.path.join(args.output_dir, file_prefix + ".output"), 'w') as f, open(
-			os.path.join(args.output_dir, file_prefix + ".gold"), 'w') as f1:
+	with open(os.path.join(args.output_dir, file_prefix + ".output"), 'w', encoding="utf-8") as f, open(
+			os.path.join(args.output_dir, file_prefix + ".gold"), 'w', encoding="utf-8") as f1:
 
 		for ref, gold in zip(generated_texts, groundtruth_sentence):
 			# ref = ref.replace('\t', ' ')
@@ -524,7 +525,12 @@ if __name__ == "__main__":
 	logger = logging.getLogger(__name__)
 
 	# write to file
-	handler = logging.FileHandler(my_args.log_name)
+	if os.path.exists(my_args.log_dir) is False:
+		os.makedirs(my_args.log_dir)
+	handler = logging.FileHandler(
+    my_args.log_dir + "/prompt{}.log".format(datetime.datetime.now().strftime("_%m%d_%H%M")),
+    mode="w"
+  )
 	handler.setLevel(logging.INFO)
 	logger.addHandler(handler)
 

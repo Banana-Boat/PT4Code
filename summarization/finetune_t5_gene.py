@@ -21,6 +21,7 @@ using a masked language modeling (MLM) loss.
 """
 
 from __future__ import absolute_import
+import datetime
 import os
 import time
 
@@ -61,7 +62,7 @@ def read_arguments():
 						help="Path to pre-trained model: e.g. roberta-base")
 
 	# Required parameters
-	parser.add_argument("--log_name", default=None, type=str, required=True)
+	parser.add_argument("--log_dir", default="./log", type=str, required=False)
 
 	parser.add_argument("--output_dir", default="./model", type=str, required=False,
 						help="The output directory where the model predictions and checkpoints will be written.")
@@ -69,12 +70,12 @@ def read_arguments():
 	parser.add_argument("--data_dir", default="./data", type=str,
 						help="Path to the dir which contains processed data for some languages")
 
-	parser.add_argument("--lang", default=None, type=str,
+	parser.add_argument("--lang", default=None, type=str, required=True,
 						help="language to summarize")
 
 	parser.add_argument("--no_cuda", default=False, action='store_true',
 						help="Avoid using CUDA when available")
-	parser.add_argument('--visible_gpu', type=str, default="",
+	parser.add_argument('--visible_gpu', type=str, default="0",
 						help="use how many gpus")
 
 	parser.add_argument("--add_task_prefix", default=False, action='store_true',
@@ -108,11 +109,11 @@ def read_arguments():
 	parser.add_argument("--warm_up_ratio", default=0.1, type=float)
 
 	# controlling arguments
-	parser.add_argument("--do_train", action='store_true',
+	parser.add_argument("--do_train", action='store_true', default=True,
 						help="Whether to run training.")
-	parser.add_argument("--do_eval", action='store_true',
+	parser.add_argument("--do_eval", action='store_true', default=True,
 						help="Whether to run eval on the dev set.")
-	parser.add_argument("--do_test", action='store_true',
+	parser.add_argument("--do_test", action='store_true', default=True,
 						help="Whether to run eval on the dev set.")
 	parser.add_argument("--do_lower_case", action='store_true',
 						help="Set this flag if you are using an uncased model.")
@@ -518,7 +519,12 @@ if __name__ == "__main__":
 						level=logging.INFO)
 	logger = logging.getLogger(__name__)
 	# write to file
-	handler = logging.FileHandler( my_args.log_name)
+	if os.path.exists(my_args.log_dir) is False:
+		os.makedirs(my_args.log_dir)
+	handler = logging.FileHandler(
+    my_args.log_dir + "/{}_fintune_{}.log".format(my_args.lang, datetime.datetime.now().strftime("%m%d_%H%M")),
+    mode="w"
+  )
 	handler.setLevel(logging.INFO)
 	logger.addHandler(handler)
 
