@@ -100,10 +100,10 @@ def read_arguments():
 						help="Pretrained config name or path if not the same as model_name")
 	parser.add_argument("--tokenizer_name", default="", type=str,
 						help="Pretrained tokenizer name or path if not the same as model_name")
-	parser.add_argument("--max_source_length", default=64, type=int,
+	parser.add_argument("--max_source_length", default=128, type=int,
 						help="The maximum total source sequence length after tokenization. Sequences longer "
 							 "than this will be truncated, sequences shorter will be padded.")
-	parser.add_argument("--max_target_length", default=32, type=int,
+	parser.add_argument("--max_target_length", default=64, type=int,
 						help="The maximum total target sequence length after tokenization. Sequences longer "
 							 "than this will be truncated, sequences shorter will be padded.")
 	parser.add_argument("--warm_up_ratio", default=0.1, type=float)

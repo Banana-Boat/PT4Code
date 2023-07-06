@@ -1,7 +1,7 @@
 import json
 import os
 
-for language in ['ruby']:
+for language in ['go']:
     print(language)
     train, valid, test = [],[],[]
     for root, dirs, files in os.walk(language + '/final'):

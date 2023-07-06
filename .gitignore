@@ -1,6 +1,7 @@
-**/log/
 **/data/
 **/__pycache__/
 
 translation/model_t5
 translation/pr_model
+
+summarization/model

@@ -58,6 +58,8 @@ def read_arguments():
 	parser = argparse.ArgumentParser()
 
 	# outdated parameters
+	parser.add_argument("--model_name", default="Salesforce/codet5-small", type=str, required=False,
+						help="Model name: e.g. Salesforce/codet5-small")
 	parser.add_argument("--model_type", default=None, type=str, required=False,
 						help="Model type: e.g. roberta")
 	parser.add_argument("--model_name_or_path", default=None, type=str, required=False,
@@ -77,7 +79,7 @@ def read_arguments():
 
 	parser.add_argument("--no_cuda", default=False, action='store_true',
 						help="Avoid using CUDA when available")
-	parser.add_argument('--visible_gpu', type=str, default="",
+	parser.add_argument('--visible_gpu', type=str, default="0",
 						help="use how many gpus")
 
 	parser.add_argument("--add_task_prefix", default=False, action='store_true',
@@ -85,12 +87,12 @@ def read_arguments():
 	parser.add_argument("--add_lang_ids", default=False, action='store_true',
 						help="Whether to add language prefix for T5 and codeT5")
 
-	parser.add_argument("--num_train_epochs", default=20, type=int,
+	parser.add_argument("--num_train_epochs", default=50, type=int,
 						help="Total number of training epochs to perform.")
 
-	parser.add_argument("--train_batch_size", default=64, type=int,
+	parser.add_argument("--train_batch_size", default=160, type=int,
 						help="Batch size per GPU/CPU for training.")
-	parser.add_argument("--eval_batch_size", default=16, type=int,
+	parser.add_argument("--eval_batch_size", default=40, type=int,
 						help="Batch size per GPU/CPU for evaluation.")
 	parser.add_argument('--gradient_accumulation_steps', type=int, default=2,
 						help="Number of updates steps to accumulate before performing a backward/update pass.")
@@ -105,7 +107,7 @@ def read_arguments():
 	parser.add_argument("--max_source_length", default=128, type=int,
 						help="The maximum total source sequence length after tokenization. Sequences longer "
 							 "than this will be truncated, sequences shorter will be padded.")
-	parser.add_argument("--max_target_length", default=256, type=int,
+	parser.add_argument("--max_target_length", default=128, type=int,
 						help="The maximum total target sequence length after tokenization. Sequences longer "
 							 "than this will be truncated, sequences shorter will be padded.")
 	parser.add_argument("--warm_up_ratio", default=0.1, type=float)
@@ -151,7 +153,7 @@ def read_arguments():
 
 def main(args):
 	set_seed(args.seed)
-
+ 
 	# data path
 	train_filename = args.data_dir + "/" + "/train.jsonl"	# train
 	dev_filename = args.data_dir + "/" +  "/valid.jsonl"	# valid
@@ -170,8 +172,8 @@ def main(args):
 		torch.distributed.init_process_group(backend='nccl')
 		args.n_gpu = 1
 
-	logger.warning("Process rank: %s, device: %s, n_gpu: %s, distributed training: %s",
-				   args.local_rank, device, args.n_gpu, bool(args.local_rank != -1))
+	logger.warning("Process rank: %s, device: %s, n_gpu: %s, distributed training: %s, model_name: %s",
+				   args.local_rank, device, args.n_gpu, bool(args.local_rank != -1), args.model_name)
 
 	args.device = device
 
@@ -182,9 +184,9 @@ def main(args):
 	# *********************************************************************************************************
 
 	# read model --------------------------------------------------------------
-	model_config = T5Config.from_pretrained("Salesforce/codet5-small")
-	plm = T5ForConditionalGeneration.from_pretrained("Salesforce/codet5-small", config=model_config)
-	tokenizer = RobertaTokenizer.from_pretrained("Salesforce/codet5-small")
+	model_config = T5Config.from_pretrained(args.model_name)
+	plm = T5ForConditionalGeneration.from_pretrained(args.model_name, config=model_config)
+	tokenizer = RobertaTokenizer.from_pretrained(args.model_name)
 	WrapperClass = T5TokenizerWrapper
 
 	# define template

@@ -1,0 +1,355 @@
+Namespace(adam_epsilon=1e-08, add_lang_ids=False, add_task_prefix=False, beam_size=10, config_name='', data_dir='./data', do_eval=True, do_lower_case=False, do_test=True, do_train=True, early_stop_threshold=10, eval_batch_size=40, eval_steps=-1, gradient_accumulation_steps=2, lang=None, learning_rate=5e-05, load_model_path=None, local_rank=-1, log_dir='./log', max_grad_norm=1.0, max_source_length=128, max_steps=-1, max_target_length=128, model_name='Salesforce/codet5-small', model_name_or_path=None, model_type=None, no_cuda=False, num_train_epochs=50, output_dir='./pr_model', seed=42, tokenizer_name='', train_batch_size=160, train_steps=-1, visible_gpu='0', warm_up_ratio=0.1, weight_decay=0.0)
+Process rank: -1, device: cuda, n_gpu: 1, distributed training: False, model_name: Salesforce/codet5-small
+Model created!!
+[[{'text': 'public virtual ListSpeechSynthesisTasksResponse ListSpeechSynthesisTasks(ListSpeechSynthesisTasksRequest request){var options = new InvokeOptions();options.RequestMarshaller = ListSpeechSynthesisTasksRequestMarshaller.Instance;options.ResponseUnmarshaller = ListSpeechSynthesisTasksResponseUnmarshaller.Instance;return Invoke<ListSpeechSynthesisTasksResponse>(request, options);}\n', 'loss_ids': 0, 'shortenable_ids': 1}, {'text': '<mask>', 'loss_ids': 1, 'shortenable_ids': 0}], {'guid': 0, 'tgt_text': 'public ListSpeechSynthesisTasksResult listSpeechSynthesisTasks(ListSpeechSynthesisTasksRequest request) {request = beforeClientExecution(request);return executeListSpeechSynthesisTasks(request);}\n'}]
+***** Running training *****
+  Num examples = 10295
+  Batch size = 160
+  Num epoch = 50
+
+***** Running evaluation *****
+  Num examples = 520
+  Batch size = 40
+  epoch = 0
+  eval_ppl = 2.803247434297162e+213
+  global_step = 33
+  train_loss = 139.5211
+  ********************
+Previous best ppl:inf
+Achieve Best ppl:2.803247434297162e+213
+  ********************
+BLEU file: ./data//valid.jsonl
+  bleu-4 = 1.28 	 Previous best bleu 0
+  ********************
+ Achieve Best bleu:1.28
+  ********************
+
+***** Running evaluation *****
+  Num examples = 520
+  Batch size = 40
+  epoch = 1
+  eval_ppl = 7.943945944801421e+254
+  global_step = 65
+  train_loss = 53.0675
+  ********************
+Previous best ppl:2.803247434297162e+213
+BLEU file: ./data//valid.jsonl
+  bleu-4 = 14.87 	 Previous best bleu 1.28
+  ********************
+ Achieve Best bleu:14.87
+  ********************
+
+***** Running evaluation *****
+  Num examples = 520
+  Batch size = 40
+  epoch = 2
+  eval_ppl = 5.276222185036574e+267
+  global_step = 97
+  train_loss = 32.9852
+  ********************
+Previous best ppl:2.803247434297162e+213
+BLEU file: ./data//valid.jsonl
+  bleu-4 = 18.19 	 Previous best bleu 14.87
+  ********************
+ Achieve Best bleu:18.19
+  ********************
+
+***** Running evaluation *****
+  Num examples = 520
+  Batch size = 40
+  epoch = 3
+  eval_ppl = 2.7661461983562016e+268
+  global_step = 129
+  train_loss = 27.4378
+  ********************
+Previous best ppl:2.803247434297162e+213
+BLEU file: ./data//valid.jsonl
+  bleu-4 = 19.23 	 Previous best bleu 18.19
+  ********************
+ Achieve Best bleu:19.23
+  ********************
+
+***** Running evaluation *****
+  Num examples = 520
+  Batch size = 40
+  epoch = 4
+  eval_ppl = 1.0454209799224654e+265
+  global_step = 161
+  train_loss = 24.3462
+  ********************
+Previous best ppl:2.803247434297162e+213
+BLEU file: ./data//valid.jsonl
+  bleu-4 = 20.25 	 Previous best bleu 19.23
+  ********************
+ Achieve Best bleu:20.25
+  ********************
+
+***** Running evaluation *****
+  Num examples = 520
+  Batch size = 40
+  epoch = 5
+  eval_ppl = 2.967228875802446e+272
+  global_step = 193
+  train_loss = 22.0217
+  ********************
+Previous best ppl:2.803247434297162e+213
+BLEU file: ./data//valid.jsonl
+  bleu-4 = 20.6 	 Previous best bleu 20.25
+  ********************
+ Achieve Best bleu:20.6
+  ********************
+
+***** Running evaluation *****
+  Num examples = 520
+  Batch size = 40
+  epoch = 6
+  eval_ppl = 9.023838906266805e+275
+  global_step = 225
+  train_loss = 20.5541
+  ********************
+Previous best ppl:2.803247434297162e+213
+BLEU file: ./data//valid.jsonl
+  bleu-4 = 20.69 	 Previous best bleu 20.6
+  ********************
+ Achieve Best bleu:20.69
+  ********************
+
+***** Running evaluation *****
+  Num examples = 520
+  Batch size = 40
+  epoch = 7
+  eval_ppl = 3.4368176788139855e+276
+  global_step = 257
+  train_loss = 19.52
+  ********************
+Previous best ppl:2.803247434297162e+213
+BLEU file: ./data//valid.jsonl
+  bleu-4 = 20.73 	 Previous best bleu 20.69
+  ********************
+ Achieve Best bleu:20.73
+  ********************
+
+***** Running evaluation *****
+  Num examples = 520
+  Batch size = 40
+  epoch = 8
+  eval_ppl = 7.970686465436358e+276
+  global_step = 289
+  train_loss = 18.5587
+  ********************
+Previous best ppl:2.803247434297162e+213
+BLEU file: ./data//valid.jsonl
+  bleu-4 = 20.9 	 Previous best bleu 20.73
+  ********************
+ Achieve Best bleu:20.9
+  ********************
+
+***** Running evaluation *****
+  Num examples = 520
+  Batch size = 40
+  epoch = 9
+  eval_ppl = 3.784283727975546e+278
+  global_step = 321
+  train_loss = 17.756
+  ********************
+Previous best ppl:2.803247434297162e+213
+BLEU file: ./data//valid.jsonl
+  bleu-4 = 21.0 	 Previous best bleu 20.9
+  ********************
+ Achieve Best bleu:21.0
+  ********************
+
+***** Running evaluation *****
+  Num examples = 520
+  Batch size = 40
+  epoch = 10
+  eval_ppl = 9.294908790225091e+280
+  global_step = 353
+  train_loss = 17.1595
+  ********************
+Previous best ppl:2.803247434297162e+213
+BLEU file: ./data//valid.jsonl
+  bleu-4 = 21.15 	 Previous best bleu 21.0
+  ********************
+ Achieve Best bleu:21.15
+  ********************
+
+***** Running evaluation *****
+  Num examples = 520
+  Batch size = 40
+  epoch = 11
+  eval_ppl = 3.5334446081662813e+280
+  global_step = 385
+  train_loss = 16.5
+  ********************
+Previous best ppl:2.803247434297162e+213
+BLEU file: ./data//valid.jsonl
+  bleu-4 = 21.26 	 Previous best bleu 21.15
+  ********************
+ Achieve Best bleu:21.26
+  ********************
+
+***** Running evaluation *****
+  Num examples = 520
+  Batch size = 40
+  epoch = 12
+  eval_ppl = 3.77173668471304e+281
+  global_step = 417
+  train_loss = 16.0013
+  ********************
+Previous best ppl:2.803247434297162e+213
+BLEU file: ./data//valid.jsonl
+  bleu-4 = 21.36 	 Previous best bleu 21.26
+  ********************
+ Achieve Best bleu:21.36
+  ********************
+
+***** Running evaluation *****
+  Num examples = 520
+  Batch size = 40
+  epoch = 13
+  eval_ppl = 9.551640335816245e+283
+  global_step = 449
+  train_loss = 15.6173
+  ********************
+Previous best ppl:2.803247434297162e+213
+BLEU file: ./data//valid.jsonl
+  bleu-4 = 21.41 	 Previous best bleu 21.36
+  ********************
+ Achieve Best bleu:21.41
+  ********************
+
+***** Running evaluation *****
+  Num examples = 520
+  Batch size = 40
+  epoch = 14
+  eval_ppl = 5.444588027847177e+285
+  global_step = 481
+  train_loss = 15.2328
+  ********************
+Previous best ppl:2.803247434297162e+213
+BLEU file: ./data//valid.jsonl
+  bleu-4 = 21.58 	 Previous best bleu 21.41
+  ********************
+ Achieve Best bleu:21.58
+  ********************
+
+***** Running evaluation *****
+  Num examples = 520
+  Batch size = 40
+  epoch = 15
+  eval_ppl = 2.291470330247409e+286
+  global_step = 513
+  train_loss = 14.8739
+  ********************
+Previous best ppl:2.803247434297162e+213
+BLEU file: ./data//valid.jsonl
+  bleu-4 = 21.68 	 Previous best bleu 21.58
+  ********************
+ Achieve Best bleu:21.68
+  ********************
+
+***** Running evaluation *****
+  Num examples = 520
+  Batch size = 40
+  epoch = 16
+  eval_ppl = 4.7910184749798404e+287
+  global_step = 545
+  train_loss = 14.5725
+  ********************
+Previous best ppl:2.803247434297162e+213
+BLEU file: ./data//valid.jsonl
+  bleu-4 = 21.7 	 Previous best bleu 21.68
+  ********************
+ Achieve Best bleu:21.7
+  ********************
+
+***** Running evaluation *****
+  Num examples = 520
+  Batch size = 40
+  epoch = 17
+  eval_ppl = 3.475134705192129e+287
+  global_step = 577
+  train_loss = 14.2047
+  ********************
+Previous best ppl:2.803247434297162e+213
+BLEU file: ./data//valid.jsonl
+  bleu-4 = 21.88 	 Previous best bleu 21.7
+  ********************
+ Achieve Best bleu:21.88
+  ********************
+
+***** Running evaluation *****
+  Num examples = 520
+  Batch size = 40
+  epoch = 18
+  eval_ppl = 5.078291451885835e+288
+  global_step = 609
+  train_loss = 13.8463
+  ********************
+Previous best ppl:2.803247434297162e+213
+BLEU file: ./data//valid.jsonl
+  bleu-4 = 22.11 	 Previous best bleu 21.88
+  ********************
+ Achieve Best bleu:22.11
+  ********************
+
+***** Running evaluation *****
+  Num examples = 520
+  Batch size = 40
+  epoch = 19
+  eval_ppl = 2.7212132617569266e+289
+  global_step = 641
+  train_loss = 13.6249
+  ********************
+Previous best ppl:2.803247434297162e+213
+BLEU file: ./data//valid.jsonl
+  bleu-4 = 22.14 	 Previous best bleu 22.11
+  ********************
+ Achieve Best bleu:22.14
+  ********************
+
+***** Running evaluation *****
+  Num examples = 520
+  Batch size = 40
+  epoch = 20
+  eval_ppl = 1.5267084344336863e+291
+  global_step = 673
+  train_loss = 13.4142
+  ********************
+Previous best ppl:2.803247434297162e+213
+BLEU file: ./data//valid.jsonl
+  bleu-4 = 22.17 	 Previous best bleu 22.14
+  ********************
+ Achieve Best bleu:22.17
+  ********************
+
+***** Running evaluation *****
+  Num examples = 520
+  Batch size = 40
+  epoch = 21
+  eval_ppl = 3.290207309084719e+289
+  global_step = 705
+  train_loss = 13.1408
+  ********************
+Previous best ppl:2.803247434297162e+213
+BLEU file: ./data//valid.jsonl
+  bleu-4 = 22.18 	 Previous best bleu 22.17
+  ********************
+ Achieve Best bleu:22.18
+  ********************
+
+***** Running evaluation *****
+  Num examples = 520
+  Batch size = 40
+  epoch = 22
+  eval_ppl = 3.857547384279872e+290
+  global_step = 737
+  train_loss = 12.8859
+  ********************
+Previous best ppl:2.803247434297162e+213
+BLEU file: ./data//valid.jsonl
+  bleu-4 = 22.24 	 Previous best bleu 22.18
+  ********************
+ Achieve Best bleu:22.24
+  ********************

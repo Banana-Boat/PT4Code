@@ -1,0 +1,317 @@
+Namespace(adam_epsilon=1e-08, add_lang_ids=False, add_task_prefix=False, beam_size=10, config_name='', data_dir='./data', do_eval=True, do_lower_case=False, do_test=True, do_train=True, early_stop_threshold=10, eval_batch_size=32, eval_steps=-1, gradient_accumulation_steps=2, lang='ruby', learning_rate=5e-05, load_model_path=None, local_rank=-1, log_dir='./log', max_grad_norm=1.0, max_source_length=128, max_steps=-1, max_target_length=64, model_name_or_path=None, model_type=None, no_cuda=False, num_train_epochs=20, output_dir='./model', seed=42, tokenizer_name='', train_batch_size=128, train_steps=-1, visible_gpu='0', warm_up_ratio=0.1, weight_decay=0.0)
+Process rank: -1, device: cuda, n_gpu: 1, distributed training: False, model_name: Salesforce/codet5-small
+model created!
+Total 48791 training instances 
+***** Running training *****
+  Num examples = 48791
+  Batch size = 128
+  Num epoch = 20
+
+***** Running evaluation *****
+  Num examples = 2209
+  Batch size = 32
+  epoch = 0
+  eval_ppl = 1.00496
+  global_step = 382
+  train_loss = 5.214
+  ********************
+Previous best ppl:inf
+Achieve Best ppl:1.00496
+  ********************
+BLEU file: ./data/ruby/valid.jsonl
+  bleu-4 = 11.8 	 Previous best bleu 0
+  ********************
+ Achieve Best bleu:11.8
+  ********************
+
+***** Running evaluation *****
+  Num examples = 2209
+  Batch size = 32
+  epoch = 1
+  eval_ppl = 1.00479
+  global_step = 763
+  train_loss = 3.4455
+  ********************
+Previous best ppl:1.00496
+Achieve Best ppl:1.00479
+  ********************
+BLEU file: ./data/ruby/valid.jsonl
+  bleu-4 = 11.91 	 Previous best bleu 11.8
+  ********************
+ Achieve Best bleu:11.91
+  ********************
+
+***** Running evaluation *****
+  Num examples = 2209
+  Batch size = 32
+  epoch = 2
+  eval_ppl = 1.00472
+  global_step = 1144
+  train_loss = 3.2991
+  ********************
+Previous best ppl:1.00479
+Achieve Best ppl:1.00472
+  ********************
+BLEU file: ./data/ruby/valid.jsonl
+  bleu-4 = 12.14 	 Previous best bleu 11.91
+  ********************
+ Achieve Best bleu:12.14
+  ********************
+
+***** Running evaluation *****
+  Num examples = 2209
+  Batch size = 32
+  epoch = 3
+  eval_ppl = 1.00469
+  global_step = 1525
+  train_loss = 3.2094
+  ********************
+Previous best ppl:1.00472
+Achieve Best ppl:1.00469
+  ********************
+BLEU file: ./data/ruby/valid.jsonl
+  bleu-4 = 12.2 	 Previous best bleu 12.14
+  ********************
+ Achieve Best bleu:12.2
+  ********************
+
+***** Running evaluation *****
+  Num examples = 2209
+  Batch size = 32
+  epoch = 4
+  eval_ppl = 1.00468
+  global_step = 1906
+  train_loss = 3.1394
+  ********************
+Previous best ppl:1.00469
+Achieve Best ppl:1.00468
+  ********************
+BLEU file: ./data/ruby/valid.jsonl
+  bleu-4 = 12.31 	 Previous best bleu 12.2
+  ********************
+ Achieve Best bleu:12.31
+  ********************
+
+***** Running evaluation *****
+  Num examples = 2209
+  Batch size = 32
+  epoch = 5
+  eval_ppl = 1.00465
+  global_step = 2287
+  train_loss = 3.0809
+  ********************
+Previous best ppl:1.00468
+Achieve Best ppl:1.00465
+  ********************
+BLEU file: ./data/ruby/valid.jsonl
+  bleu-4 = 12.37 	 Previous best bleu 12.31
+  ********************
+ Achieve Best bleu:12.37
+  ********************
+
+***** Running evaluation *****
+  Num examples = 2209
+  Batch size = 32
+  epoch = 6
+  eval_ppl = 1.00465
+  global_step = 2668
+  train_loss = 3.0327
+  ********************
+Previous best ppl:1.00465
+Achieve Best ppl:1.00465
+  ********************
+BLEU file: ./data/ruby/valid.jsonl
+  bleu-4 = 12.41 	 Previous best bleu 12.37
+  ********************
+ Achieve Best bleu:12.41
+  ********************
+
+***** Running evaluation *****
+  Num examples = 2209
+  Batch size = 32
+  epoch = 7
+  eval_ppl = 1.00464
+  global_step = 3049
+  train_loss = 2.9838
+  ********************
+Previous best ppl:1.00465
+Achieve Best ppl:1.00464
+  ********************
+BLEU file: ./data/ruby/valid.jsonl
+  bleu-4 = 12.3 	 Previous best bleu 12.41
+  ********************
+
+***** Running evaluation *****
+  Num examples = 2209
+  Batch size = 32
+  epoch = 8
+  eval_ppl = 1.00463
+  global_step = 3430
+  train_loss = 2.9445
+  ********************
+Previous best ppl:1.00464
+Achieve Best ppl:1.00463
+  ********************
+BLEU file: ./data/ruby/valid.jsonl
+  bleu-4 = 12.52 	 Previous best bleu 12.41
+  ********************
+ Achieve Best bleu:12.52
+  ********************
+
+***** Running evaluation *****
+  Num examples = 2209
+  Batch size = 32
+  epoch = 9
+  eval_ppl = 1.00462
+  global_step = 3811
+  train_loss = 2.9065
+  ********************
+Previous best ppl:1.00463
+Achieve Best ppl:1.00462
+  ********************
+BLEU file: ./data/ruby/valid.jsonl
+  bleu-4 = 12.49 	 Previous best bleu 12.52
+  ********************
+
+***** Running evaluation *****
+  Num examples = 2209
+  Batch size = 32
+  epoch = 10
+  eval_ppl = 1.00462
+  global_step = 4192
+  train_loss = 2.8785
+  ********************
+Previous best ppl:1.00462
+Achieve Best ppl:1.00462
+  ********************
+BLEU file: ./data/ruby/valid.jsonl
+  bleu-4 = 12.55 	 Previous best bleu 12.52
+  ********************
+ Achieve Best bleu:12.55
+  ********************
+
+***** Running evaluation *****
+  Num examples = 2209
+  Batch size = 32
+  epoch = 11
+  eval_ppl = 1.00463
+  global_step = 4573
+  train_loss = 2.8469
+  ********************
+Previous best ppl:1.00462
+BLEU file: ./data/ruby/valid.jsonl
+  bleu-4 = 12.52 	 Previous best bleu 12.55
+  ********************
+
+***** Running evaluation *****
+  Num examples = 2209
+  Batch size = 32
+  epoch = 12
+  eval_ppl = 1.00462
+  global_step = 4954
+  train_loss = 2.8248
+  ********************
+Previous best ppl:1.00462
+BLEU file: ./data/ruby/valid.jsonl
+  bleu-4 = 12.49 	 Previous best bleu 12.55
+  ********************
+
+***** Running evaluation *****
+  Num examples = 2209
+  Batch size = 32
+  epoch = 13
+  eval_ppl = 1.00462
+  global_step = 5335
+  train_loss = 2.8024
+  ********************
+Previous best ppl:1.00462
+BLEU file: ./data/ruby/valid.jsonl
+  bleu-4 = 12.42 	 Previous best bleu 12.55
+  ********************
+
+***** Running evaluation *****
+  Num examples = 2209
+  Batch size = 32
+  epoch = 14
+  eval_ppl = 1.00462
+  global_step = 5716
+  train_loss = 2.7863
+  ********************
+Previous best ppl:1.00462
+BLEU file: ./data/ruby/valid.jsonl
+  bleu-4 = 12.39 	 Previous best bleu 12.55
+  ********************
+
+***** Running evaluation *****
+  Num examples = 2209
+  Batch size = 32
+  epoch = 15
+  eval_ppl = 1.00462
+  global_step = 6097
+  train_loss = 2.7671
+  ********************
+Previous best ppl:1.00462
+Achieve Best ppl:1.00462
+  ********************
+BLEU file: ./data/ruby/valid.jsonl
+  bleu-4 = 12.43 	 Previous best bleu 12.55
+  ********************
+
+***** Running evaluation *****
+  Num examples = 2209
+  Batch size = 32
+  epoch = 16
+  eval_ppl = 1.00462
+  global_step = 6478
+  train_loss = 2.7536
+  ********************
+Previous best ppl:1.00462
+BLEU file: ./data/ruby/valid.jsonl
+  bleu-4 = 12.33 	 Previous best bleu 12.55
+  ********************
+
+***** Running evaluation *****
+  Num examples = 2209
+  Batch size = 32
+  epoch = 17
+  eval_ppl = 1.00462
+  global_step = 6859
+  train_loss = 2.7435
+  ********************
+Previous best ppl:1.00462
+BLEU file: ./data/ruby/valid.jsonl
+  bleu-4 = 12.22 	 Previous best bleu 12.55
+  ********************
+
+***** Running evaluation *****
+  Num examples = 2209
+  Batch size = 32
+  epoch = 18
+  eval_ppl = 1.00462
+  global_step = 7240
+  train_loss = 2.7381
+  ********************
+Previous best ppl:1.00462
+BLEU file: ./data/ruby/valid.jsonl
+  bleu-4 = 12.26 	 Previous best bleu 12.55
+  ********************
+
+***** Running evaluation *****
+  Num examples = 2209
+  Batch size = 32
+  epoch = 19
+  eval_ppl = 1.00463
+  global_step = 7621
+  train_loss = 2.7332
+  ********************
+Previous best ppl:1.00462
+BLEU file: ./data/ruby/valid.jsonl
+  bleu-4 = 12.37 	 Previous best bleu 12.55
+  ********************
+BLEU file: ./data/ruby/valid.jsonl
+  bleu-4 = 12.16 
+  ********************
+BLEU file: ./data/ruby/test.jsonl
+  bleu-4 = 10.97 
+  ********************
+Finish training and take 1h56m

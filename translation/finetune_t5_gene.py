@@ -57,6 +57,8 @@ def read_arguments():
 	parser = argparse.ArgumentParser()
 
 	# outdated parameters
+	parser.add_argument("--model_name", default="Salesforce/codet5-small", type=str, required=False,
+						help="Model name: e.g. Salesforce/codet5-small")
 	parser.add_argument("--model_type", default=None, type=str, required=False,
 						help="Model type: e.g. roberta")
 	parser.add_argument("--model_name_or_path", default=None, type=str, required=False,
@@ -76,7 +78,7 @@ def read_arguments():
 
 	parser.add_argument("--no_cuda", default=False, action='store_true',
 						help="Avoid using CUDA when available")
-	parser.add_argument('--visible_gpu', type=str, default="",
+	parser.add_argument('--visible_gpu', type=str, default="0",
 						help="use how many gpus")
 
 	parser.add_argument("--add_task_prefix", default=False, action='store_true',
@@ -149,7 +151,7 @@ def read_arguments():
 
 def main(args):
 	set_seed(args.seed)
-	model_name = "Salesforce/codet5-small"
+ 
 	# data path
 	train_filename = args.data_dir + "/" + "/train.jsonl"
 	dev_filename = args.data_dir + "/" +  "/valid.jsonl"
@@ -169,7 +171,7 @@ def main(args):
 		args.n_gpu = 1
 
 	logger.warning("Process rank: %s, device: %s, n_gpu: %s, distributed training: %s, model_name: %s", 
-				   args.local_rank, device, args.n_gpu, bool(args.local_rank != -1), model_name)
+				   args.local_rank, device, args.n_gpu, bool(args.local_rank != -1), args.model_name)
 
 	args.device = device
 
@@ -180,9 +182,9 @@ def main(args):
 	# *********************************************************************************************************
 
 	# read model --------------------------------------------------------------
-	model_config = T5Config.from_pretrained(model_name)
-	model = T5ForConditionalGeneration.from_pretrained(model_name, config=model_config)
-	tokenizer = RobertaTokenizer.from_pretrained(model_name)
+	model_config = T5Config.from_pretrained(args.model_name)
+	model = T5ForConditionalGeneration.from_pretrained(args.model_name, config=model_config)
+	tokenizer = RobertaTokenizer.from_pretrained(args.model_name)
 
 	if args.load_model_path is not None:
 		logger.info("reload model from {}".format(args.load_model_path))
