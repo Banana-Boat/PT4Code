@@ -1,5 +1,6 @@
 **/data/
 **/__pycache__/
+.idea/
 
 translation/model_t5
 translation/pr_model
