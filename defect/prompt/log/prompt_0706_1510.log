@@ -1,0 +1,244 @@
+Namespace(adam_epsilon=1e-08, add_lang_ids=False, add_task_prefix=False, beam_size=10, config_name='', data_dir='../data', do_eval=True, do_lower_case=False, do_test=True, do_train=True, early_stop_threshold=20, eval_batch_size=32, eval_steps=-1, gradient_accumulation_steps=2, learning_rate=5e-05, load_model_path=None, local_rank=-1, log_dir='./log', max_grad_norm=1.0, max_source_length=128, max_steps=-1, max_target_length=128, model_name='Salesforce/codet5-small', model_name_or_path=None, model_type=None, no_cuda=False, num_train_epochs=15, output_dir='./model', seed=4, tokenizer_name='', train_batch_size=128, train_steps=-1, visible_gpu='0', warm_up_ratio=0.1, weight_decay=0.0)
+Process rank: -1, device: cuda, n_gpu: 1, distributed training: False, model_name: Salesforce/codet5-small
+Model created!!
+[[{'text': 'static int ipvideo_decode_block_opcode_0x8(IpvideoContext *s, AVFrame *frame)\n{\n    int x, y;\n    unsigned char P[4];\n    unsigned int flags = 0;\n    /* 2-color encoding for each 4x4 quadrant, or 2-color encoding on\n     * either top and bottom or left and right halves */\n    P[0] = bytestream2_get_byte(&s->stream_ptr);\n    P[1] = bytestream2_get_byte(&s->stream_ptr);\n    if (P[0] <= P[1]) {\n        for (y = 0; y < 16; y++) {\n            // new values for each 4x4 block\n            if (!(y & 3)) {\n                if (y) {\n                    P[0]  = bytestream2_get_byte(&s->stream_ptr);\n                    P[1]  = bytestream2_get_byte(&s->stream_ptr);\n                flags = bytestream2_get_le16(&s->stream_ptr);\n            for (x = 0; x < 4; x++, flags >>= 1)\n                *s->pixel_ptr++ = P[flags & 1];\n            s->pixel_ptr += s->stride - 4;\n            // switch to right half\n            if (y == 7) s->pixel_ptr -= 8 * s->stride - 4;\n    } else {\n        flags = bytestream2_get_le32(&s->stream_ptr);\n        P[2] = bytestream2_get_byte(&s->stream_ptr);\n        P[3] = bytestream2_get_byte(&s->stream_ptr);\n        if (P[2] <= P[3]) {\n            /* vertical split; left & right halves are 2-color encoded */\n            for (y = 0; y < 16; y++) {\n                for (x = 0; x < 4; x++, flags >>= 1)\n                    *s->pixel_ptr++ = P[flags & 1];\n                s->pixel_ptr += s->stride - 4;\n                // switch to right half\n                if (y == 7) {\n                    s->pixel_ptr -= 8 * s->stride - 4;\n                    P[0]  = P[2];\n                    P[1]  = P[3];\n                    flags = bytestream2_get_le32(&s->stream_ptr);\n        } else {\n            /* horizontal split; top & bottom halves are 2-color encoded */\n            for (y = 0; y < 8; y++) {\n                if (y == 4) {\n                    P[0]  = P[2];\n                    P[1]  = P[3];\n                    flags = bytestream2_get_le32(&s->stream_ptr);\n                for (x = 0; x < 8; x++, flags >>= 1)\n                    *s->pixel_ptr++ = P[flags & 1];\n                s->pixel_ptr += s->line_inc;\n    /* report success */\n    return 0;', 'loss_ids': 0, 'shortenable_ids': 1}, {'text': '<mask>', 'loss_ids': 1, 'shortenable_ids': 0}], {'guid': 7734, 'tgt_text': 'true'}]
+***** Running training *****
+  Num examples = 32
+  Batch size = 128
+  Num epoch = 15
+
+***** Running evaluation *****
+  Num examples = 2752
+  Batch size = 32
+  epoch = 0
+  eval_ppl = inf
+  global_step = 1
+  train_loss = 25.4437
+  ********************
+Previous best ppl:inf
+Achieve Best ppl:inf
+  ********************
+Calculating Bleu score
+BLEU file: ../data/valid.jsonl
+  bleu-4 = 0.87 	 Previous best bleu 0
+  ********************
+Bleu score : 0.87
+ Achieve Best bleu:0.87
+  ********************
+
+***** Running evaluation *****
+  Num examples = 2752
+  Batch size = 32
+  epoch = 1
+  eval_ppl = inf
+  global_step = 1
+  train_loss = 28.235
+  ********************
+Previous best ppl:inf
+Calculating Bleu score
+BLEU file: ../data/valid.jsonl
+  bleu-4 = 0.87 	 Previous best bleu 0.87
+  ********************
+Bleu score : 0.87
+
+***** Running evaluation *****
+  Num examples = 2752
+  Batch size = 32
+  epoch = 2
+  eval_ppl = inf
+  global_step = 1
+  train_loss = 22.7817
+  ********************
+Previous best ppl:inf
+Calculating Bleu score
+BLEU file: ../data/valid.jsonl
+  bleu-4 = 0.87 	 Previous best bleu 0.87
+  ********************
+Bleu score : 0.87
+
+***** Running evaluation *****
+  Num examples = 2752
+  Batch size = 32
+  epoch = 3
+  eval_ppl = inf
+  global_step = 1
+  train_loss = 24.1279
+  ********************
+Previous best ppl:inf
+Calculating Bleu score
+BLEU file: ../data/valid.jsonl
+  bleu-4 = 0.87 	 Previous best bleu 0.87
+  ********************
+Bleu score : 0.87
+
+***** Running evaluation *****
+  Num examples = 2752
+  Batch size = 32
+  epoch = 4
+  eval_ppl = inf
+  global_step = 1
+  train_loss = 22.96
+  ********************
+Previous best ppl:inf
+Calculating Bleu score
+BLEU file: ../data/valid.jsonl
+  bleu-4 = 0.87 	 Previous best bleu 0.87
+  ********************
+Bleu score : 0.87
+
+***** Running evaluation *****
+  Num examples = 2752
+  Batch size = 32
+  epoch = 5
+  eval_ppl = inf
+  global_step = 1
+  train_loss = 25.4641
+  ********************
+Previous best ppl:inf
+Calculating Bleu score
+BLEU file: ../data/valid.jsonl
+  bleu-4 = 0.87 	 Previous best bleu 0.87
+  ********************
+Bleu score : 0.87
+
+***** Running evaluation *****
+  Num examples = 2752
+  Batch size = 32
+  epoch = 6
+  eval_ppl = inf
+  global_step = 1
+  train_loss = 27.1997
+  ********************
+Previous best ppl:inf
+Calculating Bleu score
+BLEU file: ../data/valid.jsonl
+  bleu-4 = 0.87 	 Previous best bleu 0.87
+  ********************
+Bleu score : 0.87
+
+***** Running evaluation *****
+  Num examples = 2752
+  Batch size = 32
+  epoch = 7
+  eval_ppl = inf
+  global_step = 1
+  train_loss = 29.7388
+  ********************
+Previous best ppl:inf
+Calculating Bleu score
+BLEU file: ../data/valid.jsonl
+  bleu-4 = 0.87 	 Previous best bleu 0.87
+  ********************
+Bleu score : 0.87
+
+***** Running evaluation *****
+  Num examples = 2752
+  Batch size = 32
+  epoch = 8
+  eval_ppl = inf
+  global_step = 1
+  train_loss = 27.8638
+  ********************
+Previous best ppl:inf
+Calculating Bleu score
+BLEU file: ../data/valid.jsonl
+  bleu-4 = 0.87 	 Previous best bleu 0.87
+  ********************
+Bleu score : 0.87
+
+***** Running evaluation *****
+  Num examples = 2752
+  Batch size = 32
+  epoch = 9
+  eval_ppl = inf
+  global_step = 1
+  train_loss = 29.1297
+  ********************
+Previous best ppl:inf
+Calculating Bleu score
+BLEU file: ../data/valid.jsonl
+  bleu-4 = 0.87 	 Previous best bleu 0.87
+  ********************
+Bleu score : 0.87
+
+***** Running evaluation *****
+  Num examples = 2752
+  Batch size = 32
+  epoch = 10
+  eval_ppl = inf
+  global_step = 1
+  train_loss = 22.9672
+  ********************
+Previous best ppl:inf
+Calculating Bleu score
+BLEU file: ../data/valid.jsonl
+  bleu-4 = 0.87 	 Previous best bleu 0.87
+  ********************
+Bleu score : 0.87
+
+***** Running evaluation *****
+  Num examples = 2752
+  Batch size = 32
+  epoch = 11
+  eval_ppl = inf
+  global_step = 1
+  train_loss = 24.6106
+  ********************
+Previous best ppl:inf
+Calculating Bleu score
+BLEU file: ../data/valid.jsonl
+  bleu-4 = 0.87 	 Previous best bleu 0.87
+  ********************
+Bleu score : 0.87
+
+***** Running evaluation *****
+  Num examples = 2752
+  Batch size = 32
+  epoch = 12
+  eval_ppl = inf
+  global_step = 1
+  train_loss = 25.4378
+  ********************
+Previous best ppl:inf
+Calculating Bleu score
+BLEU file: ../data/valid.jsonl
+  bleu-4 = 0.87 	 Previous best bleu 0.87
+  ********************
+Bleu score : 0.87
+
+***** Running evaluation *****
+  Num examples = 2752
+  Batch size = 32
+  epoch = 13
+  eval_ppl = inf
+  global_step = 1
+  train_loss = 27.6417
+  ********************
+Previous best ppl:inf
+Calculating Bleu score
+BLEU file: ../data/valid.jsonl
+  bleu-4 = 0.87 	 Previous best bleu 0.87
+  ********************
+Bleu score : 0.87
+
+***** Running evaluation *****
+  Num examples = 2752
+  Batch size = 32
+  epoch = 14
+  eval_ppl = inf
+  global_step = 1
+  train_loss = 26.0521
+  ********************
+Previous best ppl:inf
+Calculating Bleu score
+BLEU file: ../data/valid.jsonl
+  bleu-4 = 0.87 	 Previous best bleu 0.87
+  ********************
+Bleu score : 0.87
+BLEU file: ../data/valid.jsonl
+  bleu-4 = 0.94 
+  ********************
+BLEU file: ../data/test.jsonl
+  bleu-4 = 0.94 
+  ********************
+Finish training and take 4m

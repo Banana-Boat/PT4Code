@@ -58,6 +58,8 @@ def read_arguments():
 	parser = argparse.ArgumentParser()
 
 	# outdated parameters
+	parser.add_argument("--model_name", default="Salesforce/codet5-base", type=str, required=False,
+						help="Model name: e.g. Salesforce/codet5-small")
 	parser.add_argument("--model_type", default=None, type=str, required=False,
 						help="Model type: e.g. roberta")
 	parser.add_argument("--model_name_or_path", default=None, type=str, required=False,
@@ -102,10 +104,10 @@ def read_arguments():
 						help="Pretrained config name or path if not the same as model_name")
 	parser.add_argument("--tokenizer_name", default="", type=str,
 						help="Pretrained tokenizer name or path if not the same as model_name")
-	parser.add_argument("--max_source_length", default=128, type=int,
+	parser.add_argument("--max_source_length", default=256, type=int,
 						help="The maximum total source sequence length after tokenization. Sequences longer "
 							 "than this will be truncated, sequences shorter will be padded.")
-	parser.add_argument("--max_target_length", default=64, type=int,
+	parser.add_argument("--max_target_length", default=128, type=int,
 						help="The maximum total target sequence length after tokenization. Sequences longer "
 							 "than this will be truncated, sequences shorter will be padded.")
 	parser.add_argument("--warm_up_ratio", default=0.1, type=float)

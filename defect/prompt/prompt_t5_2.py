@@ -21,6 +21,7 @@ using a masked language modeling (MLM) loss.
 """
 
 from __future__ import absolute_import
+import datetime
 import os
 import time
 
@@ -57,23 +58,25 @@ def read_arguments():
 	parser = argparse.ArgumentParser()
 
 	# outdated parameters
+	parser.add_argument("--model_name", default="Salesforce/codet5-small", type=str, required=False,
+						help="Model name: e.g. Salesforce/codet5-small")
 	parser.add_argument("--model_type", default=None, type=str, required=False,
 						help="Model type: e.g. roberta")
 	parser.add_argument("--model_name_or_path", default=None, type=str, required=False,
 						help="Path to pre-trained model: e.g. roberta-base")
 
 	# Required parameters
-	parser.add_argument("--log_name", default=None, type=str, required=True)
+	parser.add_argument("--log_dir", default="./log", type=str, required=False)
 
 	parser.add_argument("--output_dir", default="./model", type=str, required=False,
 						help="The output directory where the model predictions and checkpoints will be written.")
 
-	parser.add_argument("--data_dir", default="../dataset", type=str,
+	parser.add_argument("--data_dir", default="../data", type=str,
 						help="Path to the dir which contains processed data for some languages")
 
 	parser.add_argument("--no_cuda", default=False, action='store_true',
 						help="Avoid using CUDA when available")
-	parser.add_argument('--visible_gpu', type=str, default="",
+	parser.add_argument('--visible_gpu', type=str, default="0",
 						help="use how many gpus")
 
 	parser.add_argument("--add_task_prefix", default=False, action='store_true',
@@ -84,7 +87,7 @@ def read_arguments():
 	parser.add_argument("--num_train_epochs", default=15, type=int,
 						help="Total number of training epochs to perform.")
 
-	parser.add_argument("--train_batch_size", default=32, type=int,
+	parser.add_argument("--train_batch_size", default=128, type=int,
 						help="Batch size per GPU/CPU for training.")
 	parser.add_argument("--eval_batch_size", default=32, type=int,
 						help="Batch size per GPU/CPU for evaluation.")
@@ -98,20 +101,20 @@ def read_arguments():
 						help="Pretrained config name or path if not the same as model_name")
 	parser.add_argument("--tokenizer_name", default="", type=str,
 						help="Pretrained tokenizer name or path if not the same as model_name")
-	parser.add_argument("--max_source_length", default=64, type=int,
+	parser.add_argument("--max_source_length", default=128, type=int,
 						help="The maximum total source sequence length after tokenization. Sequences longer "
 							 "than this will be truncated, sequences shorter will be padded.")
-	parser.add_argument("--max_target_length", default=32, type=int,
+	parser.add_argument("--max_target_length", default=128, type=int,
 						help="The maximum total target sequence length after tokenization. Sequences longer "
 							 "than this will be truncated, sequences shorter will be padded.")
 	parser.add_argument("--warm_up_ratio", default=0.1, type=float)
 
 	# controlling arguments
-	parser.add_argument("--do_train", action='store_true',
+	parser.add_argument("--do_train", action='store_true', default=True,
 						help="Whether to run training.")
-	parser.add_argument("--do_eval", action='store_true',
+	parser.add_argument("--do_eval", action='store_true', default=True,
 						help="Whether to run eval on the dev set.")
-	parser.add_argument("--do_test", action='store_true',
+	parser.add_argument("--do_test", action='store_true', default=True,
 						help="Whether to run eval on the dev set.")
 	parser.add_argument("--do_lower_case", action='store_true',
 						help="Set this flag if you are using an uncased model.")
@@ -148,9 +151,9 @@ def main(args):
 	set_seed(args.seed)
 
 	# data path
-	train_filename = args.data_dir + "/" + "/train.jsonl"	# train
-	dev_filename = args.data_dir + "/" +  "/valid.jsonl"	# valid
-	test_filename = args.data_dir + "/" +  "/test.jsonl"	# test
+	train_filename = args.data_dir + "/train.jsonl"	# train
+	dev_filename = args.data_dir +  "/valid.jsonl"	# valid
+	test_filename = args.data_dir +  "/test.jsonl"	# test
 
 	# Setup CUDA, GPU & distributed training
 	os.environ["CUDA_VISIBLE_DEVICES"] = args.visible_gpu
@@ -165,8 +168,8 @@ def main(args):
 		torch.distributed.init_process_group(backend='nccl')
 		args.n_gpu = 1
 
-	logger.warning("Process rank: %s, device: %s, n_gpu: %s, distributed training: %s",
-				   args.local_rank, device, args.n_gpu, bool(args.local_rank != -1))
+	logger.warning("Process rank: %s, device: %s, n_gpu: %s, distributed training: %s, model_name: %s",
+				   args.local_rank, device, args.n_gpu, bool(args.local_rank != -1), args.model_name)
 
 	args.device = device
 
@@ -177,9 +180,9 @@ def main(args):
 	# *********************************************************************************************************
 
 	# read model --------------------------------------------------------------
-	model_config = T5Config.from_pretrained("Salesforce/codet5-base")
-	plm = T5ForConditionalGeneration.from_pretrained("Salesforce/codet5-base", config=model_config)
-	tokenizer = RobertaTokenizer.from_pretrained("Salesforce/codet5-base")
+	model_config = T5Config.from_pretrained(args.model_name)
+	plm = T5ForConditionalGeneration.from_pretrained(args.model_name, config=model_config)
+	tokenizer = RobertaTokenizer.from_pretrained(args.model_name)
 	WrapperClass = T5TokenizerWrapper
 
 	# define template
@@ -570,9 +573,12 @@ if __name__ == "__main__":
 	logger = logging.getLogger(__name__)
 
 	# write to file
-	# if not os.path.exists("../logs/"):
-	# 	os.mkdir("../logs/")
-	handler = logging.FileHandler("./logs/" + my_args.log_name)
+	if os.path.exists(my_args.log_dir) is False:
+		os.makedirs(my_args.log_dir)
+	handler = logging.FileHandler(
+    my_args.log_dir + "/prompt{}.log".format(datetime.datetime.now().strftime("_%m%d_%H%M")),
+    mode="w"
+  )
 	handler.setLevel(logging.INFO)
 	logger.addHandler(handler)
 
