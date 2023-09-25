@@ -1,7 +1,7 @@
 import json
 import os
 
-for language in ['go']:
+for language in ['go', 'java']:
     print(language)
     train, valid, test = [],[],[]
     for root, dirs, files in os.walk(language + '/final'):
